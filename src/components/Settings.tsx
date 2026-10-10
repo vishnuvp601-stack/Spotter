@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Settings as SettingsIcon, X, LogOut } from 'lucide-react';
 import type { WeightUnit } from '../types';
 
@@ -10,8 +9,6 @@ interface SettingsProps {
 }
 
 export function Settings({ unit, onUnitChange, onSignOut, onClose }: SettingsProps) {
-  const [confirmingSignOut, setConfirmingSignOut] = useState(false);
-
   return (
     <div
       onClick={(e) => {
@@ -77,34 +74,14 @@ export function Settings({ unit, onUnitChange, onSignOut, onClose }: SettingsPro
 
         {/* Sign out */}
         <div className="pt-2 border-t border-zinc-200 dark:border-[#28282e] space-y-3">
-          {!confirmingSignOut ? (
-            <button
-              type="button"
-              onClick={() => setConfirmingSignOut(true)}
-              className="w-full py-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer border-zinc-300 text-zinc-600 hover:bg-zinc-100 dark:border-[#2f2f35] dark:text-zinc-400 dark:hover:bg-[#202025]"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
-            </button>
-          ) : (
-            <div className="flex items-center gap-2.5">
-              <p className="flex-1 text-xs text-zinc-500 dark:text-zinc-400">Sign out of Spotter?</p>
-              <button
-                type="button"
-                onClick={() => setConfirmingSignOut(false)}
-                className="px-4 py-2 rounded-xl text-xs font-semibold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-100 hover:bg-zinc-200 border-zinc-300 text-zinc-700 dark:bg-[#202025] dark:hover:bg-[#28282e] dark:border-[#2f2f35] dark:text-zinc-300"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={onSignOut}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-900 transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer"
-              >
-                Sign Out
-              </button>
-            </div>
-          )}
+          <button
+            type="button"
+            onClick={onSignOut}
+            className="w-full py-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer border-zinc-300 text-zinc-600 hover:bg-zinc-100 dark:border-[#2f2f35] dark:text-zinc-400 dark:hover:bg-[#202025]"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
+          </button>
         </div>
       </div>
     </div>

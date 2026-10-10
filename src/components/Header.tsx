@@ -133,7 +133,7 @@ export function Header({
               aria-label="Toggle theme"
             >
               {isDark ? (
-                <Sun className="w-4 h-4 text-amber-400" weight="fill" />
+                <Sun className="w-4 h-4" weight="fill" />
               ) : (
                 <Moon className="w-4 h-4 text-zinc-700" weight="fill" />
               )}

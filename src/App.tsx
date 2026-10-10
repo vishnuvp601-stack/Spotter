@@ -77,6 +77,22 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
+  // Shared exercise "library" for autocomplete, derived from every exercise that already
+  // exists across all routines (default + custom) - no separate DB table needed. Any
+  // exercise typed into one routine automatically becomes suggestible in every other routine.
+  // Must stay above the early returns below so it's called unconditionally on every render.
+  const exerciseLibrary = useMemo<ExerciseTemplate[]>(() => {
+    const byName = new Map<string, ExerciseTemplate>();
+    for (const routine of routines) {
+      for (const ex of routine.exercises) {
+        const key = ex.name.trim().toLowerCase();
+        if (!key) continue;
+        byName.set(key, ex);
+      }
+    }
+    return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+  }, [routines]);
+
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
@@ -187,21 +203,6 @@ function App() {
   const unit: WeightUnit = activeProfile?.unit ?? 'kg';
 
   const partnerUser: User = activeUser === 'vishnu' ? 'amy' : 'vishnu';
-
-  // Shared exercise "library" for autocomplete, derived from every exercise that already
-  // exists across all routines (default + custom) - no separate DB table needed. Any
-  // exercise typed into one routine automatically becomes suggestible in every other routine.
-  const exerciseLibrary = useMemo<ExerciseTemplate[]>(() => {
-    const byName = new Map<string, ExerciseTemplate>();
-    for (const routine of routines) {
-      for (const ex of routine.exercises) {
-        const key = ex.name.trim().toLowerCase();
-        if (!key) continue;
-        byName.set(key, ex);
-      }
-    }
-    return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
-  }, [routines]);
   const partnerName = partnerUser === 'vishnu' ? 'Vishnu' : 'Amy';
 
   const recommendedRoutine = routines.find((r) => r.id === todayInfo.routineId) ?? routines[0];

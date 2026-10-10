@@ -30,6 +30,7 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
         ]
   );
   const [error, setError] = useState<string | null>(null);
+  const [openSuggestionIndex, setOpenSuggestionIndex] = useState<number | null>(null);
   const exerciseNameRefs = useRef<(HTMLInputElement | null)[]>([]);
   const prevExerciseCountRef = useRef(exercises.length);
 
@@ -181,11 +182,6 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
       )}
 
       <form onSubmit={handleSubmit} className="space-y-7">
-        <datalist id="spotter-exercise-library">
-          {exerciseLibrary.map((item) => (
-            <option key={item.id} value={item.name} />
-          ))}
-        </datalist>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="space-y-2">
             <label className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Routine Title *</label>
@@ -255,7 +251,17 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
           </div>
 
           <div className="space-y-4">
-            {exercises.map((ex, index) => (
+            {exercises.map((ex, index) => {
+              const nameQuery = ex.name.trim().toLowerCase();
+              const suggestions = (
+                nameQuery
+                  ? exerciseLibrary.filter(
+                      (item) => item.name.toLowerCase().includes(nameQuery) && item.name.toLowerCase() !== nameQuery
+                    )
+                  : exerciseLibrary
+              ).slice(0, 6);
+
+              return (
               <div
                 key={ex.id || index}
                 className={`p-4 sm:p-5 rounded-2xl space-y-3 transition-colors ${isDark ? 'bg-[#141417]' : 'bg-zinc-100/80'}`}
@@ -271,19 +277,45 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                     </span>
                   </div>
 
-                  <div className="sm:col-span-5">
+                  <div className="sm:col-span-5 relative">
                     <input
                       type="text"
-                      list="spotter-exercise-library"
+                      autoComplete="off"
                       ref={(el) => { exerciseNameRefs.current[index] = el; }}
                       placeholder="Exercise name (e.g., Incline DB Press)"
                       value={ex.name}
                       onChange={(e) => updateExerciseName(index, e.target.value)}
+                      onFocus={() => setOpenSuggestionIndex(index)}
+                      onBlur={() => setOpenSuggestionIndex(null)}
                       className={`w-full rounded-xl p-2.5 text-base border focus:outline-none focus:border-emerald-600/70 font-normal ${
                         isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                       }`}
                       required
                     />
+                    {openSuggestionIndex === index && suggestions.length > 0 && (
+                      <div
+                        className={`absolute z-20 left-0 right-0 mt-1.5 max-h-56 overflow-y-auto rounded-xl border shadow-xl ${
+                          isDark ? 'bg-[#1c1c21] border-[#2c2c34]' : 'bg-white border-zinc-200'
+                        }`}
+                      >
+                        {suggestions.map((item) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => {
+                              updateExerciseName(index, item.name);
+                              setOpenSuggestionIndex(null);
+                            }}
+                            className={`w-full text-left px-3 py-2 text-sm font-normal transition-colors cursor-pointer focus:outline-none ${
+                              isDark ? 'text-[#e0e0e0] hover:bg-[#26262c]' : 'text-zinc-900 hover:bg-zinc-100'
+                            }`}
+                          >
+                            {item.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="sm:col-span-3">
@@ -346,11 +378,11 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                     <div>
                       <label className="block text-[10px] text-zinc-400 mb-0.5 font-normal">Incline %</label>
                       <input
-                        type="number"
-                        min="0"
-                        max="30"
-                        value={ex.defaultIncline ?? 0}
+                        type="text"
+                        inputMode="decimal"
+                        value={ex.defaultIncline ? ex.defaultIncline : ''}
                         onChange={(e) => updateExerciseField(index, 'defaultIncline', parseFloat(e.target.value) || 0)}
+                        onFocus={(e) => e.target.select()}
                         className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
@@ -359,11 +391,11 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                     <div>
                       <label className="block text-[10px] text-zinc-400 mb-0.5 font-normal">Speed (km/h)</label>
                       <input
-                        type="number"
-                        min="0"
-                        step="0.1"
-                        value={ex.defaultSpeed ?? 0}
+                        type="text"
+                        inputMode="decimal"
+                        value={ex.defaultSpeed ? ex.defaultSpeed : ''}
                         onChange={(e) => updateExerciseField(index, 'defaultSpeed', parseFloat(e.target.value) || 0)}
+                        onFocus={(e) => e.target.select()}
                         className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
@@ -372,10 +404,11 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                     <div>
                       <label className="block text-[10px] text-zinc-400 mb-0.5 font-normal">Duration (min)</label>
                       <input
-                        type="number"
-                        min="0"
-                        value={ex.defaultDurationMinutes ?? 0}
+                        type="text"
+                        inputMode="numeric"
+                        value={ex.defaultDurationMinutes ? ex.defaultDurationMinutes : ''}
                         onChange={(e) => updateExerciseField(index, 'defaultDurationMinutes', parseInt(e.target.value) || 0)}
+                        onFocus={(e) => e.target.select()}
                         className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
@@ -387,11 +420,11 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                     <div>
                       <label className="block text-[10px] text-zinc-400 mb-0.5 font-normal">Sets</label>
                       <input
-                        type="number"
-                        min="1"
-                        max="10"
+                        type="text"
+                        inputMode="numeric"
                         value={ex.defaultSets}
                         onChange={(e) => updateExerciseField(index, 'defaultSets', parseInt(e.target.value) || 1)}
+                        onFocus={(e) => e.target.select()}
                         className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
@@ -401,11 +434,11 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                     <div>
                       <label className="block text-[10px] text-zinc-400 mb-0.5 font-normal">Reps</label>
                       <input
-                        type="number"
-                        min="1"
-                        max="100"
+                        type="text"
+                        inputMode="numeric"
                         value={ex.defaultReps}
                         onChange={(e) => updateExerciseField(index, 'defaultReps', parseInt(e.target.value) || 1)}
+                        onFocus={(e) => e.target.select()}
                         className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
@@ -414,7 +447,8 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, exerciseLibra
                   </div>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

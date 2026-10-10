@@ -399,11 +399,11 @@ export function ActiveLogger({
                         {exercise.exerciseType === 'cardio' ? (
                           <>
                             <input
-                              type="number"
-                              min="0"
-                              step="0.5"
-                              value={set.incline ?? 0}
+                              type="text"
+                              inputMode="decimal"
+                              value={set.incline ? set.incline : ''}
                               onChange={(e) => updateSetIncline(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
+                              onFocus={(e) => e.target.select()}
                               className="w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                             />
                           </>
@@ -417,10 +417,11 @@ export function ActiveLogger({
                           -
                         </button>
                         <input
-                          type="number"
-                          step="0.5"
-                          value={set.weight}
+                          type="text"
+                          inputMode="decimal"
+                          value={set.weight ? set.weight : ''}
                           onChange={(e) => updateSetWeight(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
+                          onFocus={(e) => e.target.select()}
                           className="w-14 sm:w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                         />
                         <button
@@ -437,11 +438,11 @@ export function ActiveLogger({
                       <div className={exercise.exerciseType === 'cardio' ? 'col-span-3 flex items-center justify-center gap-1 sm:gap-1.5' : 'col-span-4 flex items-center justify-center gap-1 sm:gap-1.5'}>
                         {exercise.exerciseType === 'cardio' ? (
                           <input
-                            type="number"
-                            min="0"
-                            step="0.1"
-                            value={set.speed ?? 0}
+                            type="text"
+                            inputMode="decimal"
+                            value={set.speed ? set.speed : ''}
                             onChange={(e) => updateSetSpeed(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
+                            onFocus={(e) => e.target.select()}
                             className="w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                           />
                         ) : (
@@ -454,9 +455,11 @@ export function ActiveLogger({
                           -
                         </button>
                         <input
-                          type="number"
-                          value={set.reps}
+                          type="text"
+                          inputMode="numeric"
+                          value={set.reps ? set.reps : ''}
                           onChange={(e) => updateSetReps(exerciseIdx, setIdx, parseInt(e.target.value, 10) || 0)}
+                          onFocus={(e) => e.target.select()}
                           className="w-12 sm:w-12 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                         />
                         <button
@@ -473,10 +476,11 @@ export function ActiveLogger({
                       {exercise.exerciseType === 'cardio' && (
                         <div className="col-span-3 flex items-center justify-center gap-1 sm:gap-1.5">
                           <input
-                            type="number"
-                            min="0"
-                            value={set.durationMinutes ?? 0}
+                            type="text"
+                            inputMode="numeric"
+                            value={set.durationMinutes ? set.durationMinutes : ''}
                             onChange={(e) => updateSetDuration(exerciseIdx, setIdx, parseInt(e.target.value, 10) || 0)}
+                            onFocus={(e) => e.target.select()}
                             className="w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                           />
                         </div>

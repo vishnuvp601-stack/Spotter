@@ -21,10 +21,10 @@ export function RoutinePreviewList({ routine }: RoutinePreviewListProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
         {routine.exercises.map((exercise, index) => {
-          let targetStr = `${exercise.defaultSets}×${exercise.defaultReps}`;
-          if (exercise.id === 'treadmill-incline' || exercise.name.toLowerCase().includes('treadmill')) {
-            targetStr = '12% Inc • 3.5k';
-          }
+          const targetStr =
+            exercise.exerciseType === 'cardio'
+              ? `${exercise.defaultIncline ?? 0}% Inc • ${exercise.defaultSpeed ?? 0} km/h`
+              : `${exercise.defaultSets}×${exercise.defaultReps}`;
 
           return (
             <div

@@ -11,13 +11,19 @@ export interface Profile {
   theme: 'dark' | 'light';
 }
 
+export type ExerciseType = 'strength' | 'cardio';
+
 export interface ExerciseTemplate {
   id: string;
   name: string;
   targetMuscle: string;
+  exerciseType?: ExerciseType; // absent/undefined treated as 'strength' for back-compat
   defaultSets: number;
   defaultReps: number;
   defaultWeight: number; // in current unit default (e.g. kg)
+  defaultIncline?: number; // percent, cardio only
+  defaultSpeed?: number; // km/h, cardio only
+  defaultDurationMinutes?: number; // cardio only
 }
 
 export interface Routine {
@@ -39,12 +45,16 @@ export interface LoggedSet {
   isPR?: boolean;
   previousWeight?: number;
   previousReps?: number;
+  incline?: number; // percent, cardio only
+  speed?: number; // km/h, cardio only
+  durationMinutes?: number; // cardio only
 }
 
 export interface LoggedExercise {
   exerciseId: string;
   exerciseName: string;
   targetMuscle: string;
+  exerciseType?: ExerciseType;
   sets: LoggedSet[];
   notes?: string;
 }

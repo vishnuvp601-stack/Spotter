@@ -33,21 +33,37 @@ export function ActiveLogger({
   // Initialize exercises with Smart Defaults from user's previous session
   useEffect(() => {
     const initialized: LoggedExercise[] = routine.exercises.map((template) => {
-      const smartDefault = getSmartDefaults(sessions, activeUser, template.id, template.defaultWeight, template.defaultReps);
+      let sets: LoggedSet[];
 
-      const sets: LoggedSet[] = Array.from({ length: template.defaultSets }, (_, idx) => ({
-        setNumber: idx + 1,
-        weight: smartDefault.weight,
-        reps: smartDefault.reps,
-        completed: false,
-        previousWeight: smartDefault.isFromPreviousSession ? smartDefault.weight : undefined,
-        previousReps: smartDefault.isFromPreviousSession ? smartDefault.reps : undefined,
-      }));
+      if (template.exerciseType === 'cardio') {
+        sets = [
+          {
+            setNumber: 1,
+            weight: 0,
+            reps: 0,
+            completed: false,
+            incline: template.defaultIncline ?? 0,
+            speed: template.defaultSpeed ?? 0,
+            durationMinutes: template.defaultDurationMinutes ?? 0,
+          },
+        ];
+      } else {
+        const smartDefault = getSmartDefaults(sessions, activeUser, template.id, template.defaultWeight, template.defaultReps);
+        sets = Array.from({ length: template.defaultSets }, (_, idx) => ({
+          setNumber: idx + 1,
+          weight: smartDefault.weight,
+          reps: smartDefault.reps,
+          completed: false,
+          previousWeight: smartDefault.isFromPreviousSession ? smartDefault.weight : undefined,
+          previousReps: smartDefault.isFromPreviousSession ? smartDefault.reps : undefined,
+        }));
+      }
 
       return {
         exerciseId: template.id,
         exerciseName: template.name,
         targetMuscle: template.targetMuscle,
+        exerciseType: template.exerciseType ?? 'strength',
         sets,
       };
     });
@@ -102,6 +118,45 @@ export function ActiveLogger({
     });
   };
 
+  const updateSetIncline = (exerciseIdx: number, setIdx: number, newIncline: number) => {
+    const safeIncline = Math.max(0, newIncline);
+    setExercises((prev) => {
+      const copy = [...prev];
+      const ex = { ...copy[exerciseIdx] };
+      const sets = [...ex.sets];
+      sets[setIdx] = { ...sets[setIdx], incline: safeIncline };
+      ex.sets = sets;
+      copy[exerciseIdx] = ex;
+      return copy;
+    });
+  };
+
+  const updateSetSpeed = (exerciseIdx: number, setIdx: number, newSpeed: number) => {
+    const safeSpeed = Math.max(0, newSpeed);
+    setExercises((prev) => {
+      const copy = [...prev];
+      const ex = { ...copy[exerciseIdx] };
+      const sets = [...ex.sets];
+      sets[setIdx] = { ...sets[setIdx], speed: safeSpeed };
+      ex.sets = sets;
+      copy[exerciseIdx] = ex;
+      return copy;
+    });
+  };
+
+  const updateSetDuration = (exerciseIdx: number, setIdx: number, newDuration: number) => {
+    const safeDuration = Math.max(0, Math.round(newDuration));
+    setExercises((prev) => {
+      const copy = [...prev];
+      const ex = { ...copy[exerciseIdx] };
+      const sets = [...ex.sets];
+      sets[setIdx] = { ...sets[setIdx], durationMinutes: safeDuration };
+      ex.sets = sets;
+      copy[exerciseIdx] = ex;
+      return copy;
+    });
+  };
+
   const toggleSetComplete = (exerciseIdx: number, setIdx: number) => {
     setExercises((prev) => {
       const copy = [...prev];
@@ -132,12 +187,23 @@ export function ActiveLogger({
       const copy = [...prev];
       const ex = { ...copy[exerciseIdx] };
       const lastSet = ex.sets[ex.sets.length - 1];
-      const newSet: LoggedSet = {
-        setNumber: ex.sets.length + 1,
-        weight: lastSet ? lastSet.weight : 20,
-        reps: lastSet ? lastSet.reps : 10,
-        completed: false,
-      };
+      const newSet: LoggedSet =
+        ex.exerciseType === 'cardio'
+          ? {
+              setNumber: ex.sets.length + 1,
+              weight: 0,
+              reps: 0,
+              completed: false,
+              incline: lastSet?.incline ?? 0,
+              speed: lastSet?.speed ?? 0,
+              durationMinutes: lastSet?.durationMinutes ?? 0,
+            }
+          : {
+              setNumber: ex.sets.length + 1,
+              weight: lastSet ? lastSet.weight : 20,
+              reps: lastSet ? lastSet.reps : 10,
+              completed: false,
+            };
       ex.sets = [...ex.sets, newSet];
       copy[exerciseIdx] = ex;
       return copy;
@@ -161,6 +227,7 @@ export function ActiveLogger({
   const totalPlannedSets = exercises.reduce((acc, ex) => acc + ex.sets.length, 0);
 
   const totalVolume = exercises.reduce((acc, ex) => {
+    if (ex.exerciseType === 'cardio') return acc;
     return acc + ex.sets.filter((s) => s.completed).reduce((sAcc, s) => sAcc + s.weight * s.reps, 0);
   }, 0);
 
@@ -278,7 +345,7 @@ export function ActiveLogger({
                 </div>
 
                 <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 self-start sm:self-auto">
-                  {historical.maxWeight > 0 ? (
+                  {exercise.exerciseType === 'cardio' ? null : historical.maxWeight > 0 ? (
                     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border font-normal bg-zinc-100 border-zinc-300 text-zinc-700 dark:bg-[#222226] dark:border-[#2c2c34] dark:text-zinc-300">
                       <Trophy className="w-3.5 h-3.5 text-amber-500" />
                       <span className="tabular-nums">
@@ -292,12 +359,22 @@ export function ActiveLogger({
               </div>
 
               <div className="space-y-3 sm:space-y-3.5">
-                <div className="grid grid-cols-12 gap-2 sm:gap-3 text-[10px] sm:text-xs uppercase tracking-wider text-zinc-400 px-2 font-semibold">
-                  <div className="col-span-1 text-center">Set</div>
-                  <div className="col-span-5 text-center">Weight ({unit})</div>
-                  <div className="col-span-4 text-center">Reps</div>
-                  <div className="col-span-2 text-center">Done</div>
-                </div>
+                {exercise.exerciseType === 'cardio' ? (
+                  <div className="grid grid-cols-12 gap-2 sm:gap-3 text-[10px] sm:text-xs uppercase tracking-wider text-zinc-400 px-2 font-semibold">
+                    <div className="col-span-1 text-center">Set</div>
+                    <div className="col-span-3 text-center">Incline %</div>
+                    <div className="col-span-3 text-center">Speed (km/h)</div>
+                    <div className="col-span-3 text-center">Duration (min)</div>
+                    <div className="col-span-2 text-center">Done</div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-12 gap-2 sm:gap-3 text-[10px] sm:text-xs uppercase tracking-wider text-zinc-400 px-2 font-semibold">
+                    <div className="col-span-1 text-center">Set</div>
+                    <div className="col-span-5 text-center">Weight ({unit})</div>
+                    <div className="col-span-4 text-center">Reps</div>
+                    <div className="col-span-2 text-center">Done</div>
+                  </div>
+                )}
 
                 {exercise.sets.map((set, setIdx) => {
                   return (
@@ -318,7 +395,20 @@ export function ActiveLogger({
                         )}
                       </div>
 
-                      <div className="col-span-5 flex items-center justify-center gap-1 sm:gap-1.5">
+                      <div className={exercise.exerciseType === 'cardio' ? 'col-span-3 flex items-center justify-center gap-1 sm:gap-1.5' : 'col-span-5 flex items-center justify-center gap-1 sm:gap-1.5'}>
+                        {exercise.exerciseType === 'cardio' ? (
+                          <>
+                            <input
+                              type="number"
+                              min="0"
+                              step="0.5"
+                              value={set.incline ?? 0}
+                              onChange={(e) => updateSetIncline(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
+                              className="w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                            />
+                          </>
+                        ) : (
+                          <>
                         <button
                           type="button"
                           onClick={() => updateSetWeight(exerciseIdx, setIdx, set.weight - 2.5)}
@@ -340,9 +430,22 @@ export function ActiveLogger({
                         >
                           +
                         </button>
+                          </>
+                        )}
                       </div>
 
-                      <div className="col-span-4 flex items-center justify-center gap-1 sm:gap-1.5">
+                      <div className={exercise.exerciseType === 'cardio' ? 'col-span-3 flex items-center justify-center gap-1 sm:gap-1.5' : 'col-span-4 flex items-center justify-center gap-1 sm:gap-1.5'}>
+                        {exercise.exerciseType === 'cardio' ? (
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.1"
+                            value={set.speed ?? 0}
+                            onChange={(e) => updateSetSpeed(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
+                            className="w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                          />
+                        ) : (
+                          <>
                         <button
                           type="button"
                           onClick={() => updateSetReps(exerciseIdx, setIdx, set.reps - 1)}
@@ -363,7 +466,21 @@ export function ActiveLogger({
                         >
                           +
                         </button>
+                          </>
+                        )}
                       </div>
+
+                      {exercise.exerciseType === 'cardio' && (
+                        <div className="col-span-3 flex items-center justify-center gap-1 sm:gap-1.5">
+                          <input
+                            type="number"
+                            min="0"
+                            value={set.durationMinutes ?? 0}
+                            onChange={(e) => updateSetDuration(exerciseIdx, setIdx, parseInt(e.target.value, 10) || 0)}
+                            className="w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                          />
+                        </div>
+                      )}
 
                       <div className="col-span-2 flex items-center justify-center gap-1.5">
                         <button

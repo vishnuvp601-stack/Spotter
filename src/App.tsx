@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import type { Routine, User, WeightUnit, WorkoutSession } from './types';
+import { useEffect, useMemo, useState } from 'react';
+import type { ExerciseTemplate, Routine, User, WeightUnit, WorkoutSession } from './types';
 import { useSpotterData } from './state/SpotterDataContext';
 import { getStoredActiveUser, setStoredActiveUser, getStoredTheme, setStoredTheme } from './utils/localPrefs';
 import { computeStreak, computeWeeklySessionDays, computeTotalPRs } from './utils/workoutStats';
@@ -30,9 +30,13 @@ const CARDIO_ROUTINE: Routine = {
       id: 'treadmill-incline',
       name: 'Treadmill Incline Walk',
       targetMuscle: 'Cardio',
+      exerciseType: 'cardio',
       defaultSets: 1,
       defaultReps: 1,
       defaultWeight: 0,
+      defaultIncline: 12,
+      defaultSpeed: 3.5,
+      defaultDurationMinutes: 20,
     },
   ],
 };
@@ -183,6 +187,21 @@ function App() {
   const unit: WeightUnit = activeProfile?.unit ?? 'kg';
 
   const partnerUser: User = activeUser === 'vishnu' ? 'amy' : 'vishnu';
+
+  // Shared exercise "library" for autocomplete, derived from every exercise that already
+  // exists across all routines (default + custom) - no separate DB table needed. Any
+  // exercise typed into one routine automatically becomes suggestible in every other routine.
+  const exerciseLibrary = useMemo<ExerciseTemplate[]>(() => {
+    const byName = new Map<string, ExerciseTemplate>();
+    for (const routine of routines) {
+      for (const ex of routine.exercises) {
+        const key = ex.name.trim().toLowerCase();
+        if (!key) continue;
+        byName.set(key, ex);
+      }
+    }
+    return Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+  }, [routines]);
   const partnerName = partnerUser === 'vishnu' ? 'Vishnu' : 'Amy';
 
   const recommendedRoutine = routines.find((r) => r.id === todayInfo.routineId) ?? routines[0];
@@ -314,6 +333,7 @@ function App() {
             {activeSubTab === 'routines' && (
               <RoutinesView
                 routines={routines}
+                exerciseLibrary={exerciseLibrary}
                 onSelectRoutineToStart={handleLaunchWorkout}
                 onSaveCustomRoutine={handleSaveCustomRoutine}
                 onDeleteCustomRoutine={handleDeleteCustomRoutine}

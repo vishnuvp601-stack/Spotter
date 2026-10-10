@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import type { Routine, User } from '../types';
+import type { ExerciseTemplate, Routine, User } from '../types';
 import { Plus, Play, Dumbbell, ArrowLeft, Star, Pencil, Trash2, AlertTriangle, X } from 'lucide-react';
 import { RoutineBuilder } from './RoutineBuilder';
 
 interface RoutinesViewProps {
   routines: Routine[];
+  exerciseLibrary?: ExerciseTemplate[];
   onSelectRoutineToStart: (routine: Routine) => void;
   onSaveCustomRoutine: (routine: Routine) => void;
   onDeleteCustomRoutine: (routineId: string) => void;
@@ -15,6 +16,7 @@ interface RoutinesViewProps {
 
 export function RoutinesView({
   routines,
+  exerciseLibrary,
   onSelectRoutineToStart,
   onSaveCustomRoutine,
   onDeleteCustomRoutine,
@@ -35,6 +37,7 @@ export function RoutinesView({
     return (
       <RoutineBuilder
         initialRoutine={editingRoutine ?? undefined}
+        exerciseLibrary={exerciseLibrary}
         onSave={(newRoutine) => {
           onSaveCustomRoutine(newRoutine);
           setIsBuilding(false);
@@ -164,7 +167,9 @@ export function RoutinesView({
                             {i + 1}. {ex.name}
                           </span>
                           <span className="text-zinc-500 dark:text-zinc-400 tabular-nums font-normal text-xs leading-normal">
-                            {ex.defaultSets} × {ex.defaultReps}
+                            {ex.exerciseType === 'cardio'
+                              ? `${ex.defaultIncline ?? 0}% incline • ${ex.defaultSpeed ?? 0} km/h • ${ex.defaultDurationMinutes ?? 0} min`
+                              : `${ex.defaultSets} × ${ex.defaultReps}`}
                           </span>
                         </div>
                       ))}

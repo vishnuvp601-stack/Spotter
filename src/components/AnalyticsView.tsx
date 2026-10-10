@@ -153,7 +153,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
             <select
               value={activeExerciseId}
               onChange={(e) => setSelectedExerciseId(e.target.value)}
-              className="px-3.5 py-2 rounded-xl border text-xs font-semibold focus:outline-none focus:border-emerald-600/70 bg-zinc-100 border-zinc-300 text-zinc-800 dark:bg-[#222226] dark:border-[#2f2f35] dark:text-[#e0e0e0]"
+              className="px-3.5 py-2 rounded-xl border text-base font-semibold focus:outline-none focus:border-emerald-600/70 bg-zinc-100 border-zinc-300 text-zinc-800 dark:bg-[#222226] dark:border-[#2f2f35] dark:text-[#e0e0e0]"
             >
               {loggedExercises.map((ex) => (
                 <option key={ex.id} value={ex.id}>

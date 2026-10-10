@@ -27,8 +27,8 @@ export function ScheduleBar({ selectedRoutineId, onSelectRoutineId, sessions, ac
         </span>
       </div>
 
-      <div className="overflow-x-auto no-scrollbar -mx-1 px-1 sm:mx-0 sm:px-0 pb-1">
-        <div className="grid grid-cols-5 gap-2 min-w-[500px] sm:min-w-0">
+      <div className="-mx-1 px-1 sm:mx-0 sm:px-0 pb-1">
+        <div className="grid grid-cols-5 gap-1 sm:gap-2">
           {scheduleWithStatus.map((item) => {
             const isSelected = selectedRoutineId === item.routineId;
 
@@ -37,7 +37,7 @@ export function ScheduleBar({ selectedRoutineId, onSelectRoutineId, sessions, ac
                 key={item.dayNumber}
                 type="button"
                 onClick={() => onSelectRoutineId(item.routineId)}
-                className={`text-left p-3 sm:p-3.5 rounded-lg border-t-2 transition-colors flex flex-col justify-between min-h-[92px] sm:min-h-[108px] focus:outline-none focus:ring-0 select-none cursor-pointer ${
+                className={`text-left p-1.5 sm:p-3.5 rounded-lg border-t-2 transition-colors flex flex-col justify-between min-h-[76px] sm:min-h-[108px] focus:outline-none focus:ring-0 select-none cursor-pointer ${
                   isSelected
                     ? 'bg-zinc-100 border-t-emerald-500 dark:bg-[#1c1c20] dark:border-t-emerald-500'
                     : 'bg-zinc-50 border-t-transparent hover:bg-zinc-100 dark:bg-[#18181b] dark:hover:bg-[#1c1c20]'

@@ -16,6 +16,7 @@
   html {
     background-color: #fafafc;
     color: #18181b;
+    overflow-x: hidden;
   }
 
   html.dark {

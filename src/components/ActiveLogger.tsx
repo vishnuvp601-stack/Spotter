@@ -200,7 +200,7 @@ export function ActiveLogger({
   return (
     <div className="space-y-8 pb-36 select-none">
       {/* Active Workout Header Bar */}
-      <div className="border rounded-2xl p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 sticky top-16 z-20 backdrop-blur-md transition-colors bg-zinc-50/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <div className="border rounded-2xl p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 sticky top-[calc(4rem+env(safe-area-inset-top))] z-20 backdrop-blur-md transition-colors bg-zinc-50/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
         <div className="flex items-center gap-3 min-w-0">
           <button
             type="button"
@@ -330,7 +330,7 @@ export function ActiveLogger({
                           step="0.5"
                           value={set.weight}
                           onChange={(e) => updateSetWeight(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
-                          className="w-12 sm:w-16 text-center text-xs sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                          className="w-14 sm:w-16 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                         />
                         <button
                           type="button"
@@ -353,7 +353,7 @@ export function ActiveLogger({
                           type="number"
                           value={set.reps}
                           onChange={(e) => updateSetReps(exerciseIdx, setIdx, parseInt(e.target.value, 10) || 0)}
-                          className="w-10 sm:w-12 text-center text-xs sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                          className="w-12 sm:w-12 text-center text-base sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                         />
                         <button
                           type="button"
@@ -426,7 +426,7 @@ export function ActiveLogger({
           onChange={(e) => setSessionNotes(e.target.value)}
           placeholder="How did today's session feel? Any soreness, energy levels, or gym highlights..."
           rows={3}
-          className="w-full p-3.5 rounded-xl border text-xs sm:text-sm leading-relaxed focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 placeholder-zinc-400 dark:bg-[#121214] dark:border-[#28282e] dark:text-[#e0e0e0] dark:placeholder-zinc-500 font-normal"
+          className="w-full p-3.5 rounded-xl border text-base leading-relaxed focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 placeholder-zinc-400 dark:bg-[#121214] dark:border-[#28282e] dark:text-[#e0e0e0] dark:placeholder-zinc-500 font-normal"
         />
       </div>
 
@@ -454,7 +454,7 @@ export function ActiveLogger({
           onClick={(e) => {
             if (e.target === e.currentTarget) setShowDiscardModal(false);
           }}
-          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150"
+          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto no-scrollbar animate-in fade-in duration-150"
         >
           <div className="border rounded-3xl max-w-sm w-full p-6 sm:p-7 space-y-5 relative select-none animate-in zoom-in-95 duration-150 bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
             <button
@@ -510,7 +510,7 @@ export function ActiveLogger({
           onClick={(e) => {
             if (e.target === e.currentTarget) setShowSummaryModal(false);
           }}
-          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150"
+          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto no-scrollbar animate-in fade-in duration-150"
         >
           <div className="border rounded-3xl max-w-md w-full p-7 sm:p-8 space-y-6 animate-in zoom-in-95 duration-150 relative select-none bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
             <button

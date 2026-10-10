@@ -178,7 +178,7 @@ export function HistoryView({ sessions, activeUser, unit, onDeleteSession, onBac
           onClick={(e) => {
             if (e.target === e.currentTarget) setSessionToDelete(null);
           }}
-          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150"
+          className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto no-scrollbar animate-in fade-in duration-150"
         >
           <div className="border rounded-3xl max-w-sm w-full p-6 sm:p-7 space-y-5 animate-in zoom-in-95 duration-150 relative bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
             <div className="flex items-center gap-3">

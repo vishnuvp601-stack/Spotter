@@ -41,7 +41,7 @@ export function Header({
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b backdrop-blur-md transition-colors select-none bg-[#f1f1f3]/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <header className="sticky top-0 z-30 border-b backdrop-blur-md transition-colors select-none bg-[#f1f1f3]/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0] pt-[env(safe-area-inset-top)]">
         <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-3">
           {/* Logo: Dumbbell icon inside rounded square badge + SPOTTER */}
           <button
@@ -155,7 +155,7 @@ export function Header({
 
       {/* Validation Dialog when switching athlete during an active session */}
       {pendingSwitchUser && (
-        <div className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto no-scrollbar">
           <div className="border rounded-2xl max-w-sm w-full p-6 sm:p-7 space-y-5 animate-in fade-in zoom-in-95 duration-150 relative bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#2f2f35] dark:text-[#e0e0e0]">
             <button
               type="button"

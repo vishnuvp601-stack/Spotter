@@ -78,7 +78,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
               required
               autoComplete="username"
               placeholder="you@example.com"
-              className="w-full rounded-lg px-3 py-2.5 text-sm border bg-zinc-50 border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 dark:bg-[#18181b] dark:border-[#2a2a30] dark:text-[#e0e0e0] dark:placeholder:text-zinc-600 dark:focus:border-zinc-500 transition-colors"
+              className="w-full rounded-lg px-3 py-2.5 text-base border bg-zinc-50 border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 dark:bg-[#18181b] dark:border-[#2a2a30] dark:text-[#e0e0e0] dark:placeholder:text-zinc-600 dark:focus:border-zinc-500 transition-colors"
             />
           </div>
 
@@ -91,7 +91,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
               required
               autoComplete="current-password"
               placeholder="••••••••"
-              className="w-full rounded-lg px-3 py-2.5 text-sm border bg-zinc-50 border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 dark:bg-[#18181b] dark:border-[#2a2a30] dark:text-[#e0e0e0] dark:placeholder:text-zinc-600 dark:focus:border-zinc-500 transition-colors"
+              className="w-full rounded-lg px-3 py-2.5 text-base border bg-zinc-50 border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 dark:bg-[#18181b] dark:border-[#2a2a30] dark:text-[#e0e0e0] dark:placeholder:text-zinc-600 dark:focus:border-zinc-500 transition-colors"
             />
           </div>
 

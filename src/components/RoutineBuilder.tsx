@@ -139,7 +139,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
                 setError(null);
               }}
               placeholder="E.g., Upper Power or Arms & Delts"
-              className={`w-full rounded-xl p-3 text-sm border focus:outline-none focus:border-emerald-600/70 font-normal ${
+              className={`w-full rounded-xl p-3 text-base border focus:outline-none focus:border-emerald-600/70 font-normal ${
                 isDark
                   ? 'bg-[#121214] border-[#28282e] text-[#e0e0e0] placeholder-zinc-500'
                   : 'bg-zinc-50 border-zinc-300 text-zinc-900 placeholder-zinc-400'
@@ -155,7 +155,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
               value={targetCategory}
               onChange={(e) => setTargetCategory(e.target.value)}
               placeholder="E.g., Chest & Arms, Quads & Glutes"
-              className={`w-full rounded-xl p-3 text-sm border focus:outline-none focus:border-emerald-600/70 font-normal ${
+              className={`w-full rounded-xl p-3 text-base border focus:outline-none focus:border-emerald-600/70 font-normal ${
                 isDark
                   ? 'bg-[#121214] border-[#28282e] text-[#e0e0e0] placeholder-zinc-500'
                   : 'bg-zinc-50 border-zinc-300 text-zinc-900 placeholder-zinc-400'
@@ -171,7 +171,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="E.g., 4 exercises focusing on high-volume hypertrophy"
-            className={`w-full rounded-xl p-3 text-sm border focus:outline-none focus:border-emerald-600/70 font-normal ${
+            className={`w-full rounded-xl p-3 text-base border focus:outline-none focus:border-emerald-600/70 font-normal ${
               isDark
                 ? 'bg-[#121214] border-[#28282e] text-[#e0e0e0] placeholder-zinc-500'
                 : 'bg-zinc-50 border-zinc-300 text-zinc-900 placeholder-zinc-400'
@@ -219,7 +219,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
                       placeholder="Exercise name (e.g., Incline DB Press)"
                       value={ex.name}
                       onChange={(e) => updateExerciseField(index, 'name', e.target.value)}
-                      className={`w-full rounded-xl p-2.5 text-xs sm:text-sm border focus:outline-none focus:border-emerald-600/70 font-normal ${
+                      className={`w-full rounded-xl p-2.5 text-base border focus:outline-none focus:border-emerald-600/70 font-normal ${
                         isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                       }`}
                       required
@@ -232,7 +232,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
                       placeholder="Target muscle"
                       value={ex.targetMuscle}
                       onChange={(e) => updateExerciseField(index, 'targetMuscle', e.target.value)}
-                      className={`w-full rounded-xl p-2.5 text-xs sm:text-sm border focus:outline-none focus:border-emerald-600/70 font-normal ${
+                      className={`w-full rounded-xl p-2.5 text-base border focus:outline-none focus:border-emerald-600/70 font-normal ${
                         isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                       }`}
                     />
@@ -247,7 +247,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
                         max="10"
                         value={ex.defaultSets}
                         onChange={(e) => updateExerciseField(index, 'defaultSets', parseInt(e.target.value) || 1)}
-                        className={`w-full rounded-xl p-2 text-center text-xs sm:text-sm border focus:outline-none focus:border-emerald-600/70 font-bold ${
+                        className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
                       />
@@ -261,7 +261,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
                         max="100"
                         value={ex.defaultReps}
                         onChange={(e) => updateExerciseField(index, 'defaultReps', parseInt(e.target.value) || 1)}
-                        className={`w-full rounded-xl p-2 text-center text-xs sm:text-sm border focus:outline-none focus:border-emerald-600/70 font-bold ${
+                        className={`w-full rounded-xl p-2 text-center text-base border focus:outline-none focus:border-emerald-600/70 font-bold ${
                           isDark ? 'bg-[#101012] border-[#2a2a30] text-[#e0e0e0]' : 'bg-zinc-50 border-zinc-300 text-zinc-900'
                         }`}
                       />

@@ -76,7 +76,7 @@ export function RestTimer({ initialSeconds = 90, isActive, onClose }: RestTimerP
   };
 
   return (
-    <div className="fixed bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-md animate-in fade-in slide-in-from-bottom-4 duration-200 select-none">
+    <div className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-md animate-in fade-in slide-in-from-bottom-4 duration-200 select-none">
       <div className="bg-[#18181c]/95 border border-[#28282e] rounded-2xl p-4 sm:p-5 backdrop-blur-md">
         <div className="w-full bg-[#121214] h-1.5 rounded-full overflow-hidden mb-3.5">
           <div

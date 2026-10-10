@@ -1,4 +1,4 @@
-import type { WorkoutSession, User } from '../types';
+import type { WorkoutSession, User, Routine } from '../types';
 
 export interface ScheduleDayStatus {
   dayNumber: number; // 1 = Mon, 2 = Tue, 3 = Wed, 4 = Thu, 5 = Fri
@@ -13,6 +13,14 @@ export interface ScheduleDayStatus {
 
 export function getCurrentDayIndex(): number {
   return new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+}
+
+// Local calendar date (not UTC) as YYYY-MM-DD - avoids an off-by-one near midnight.
+export function getLocalDateString(d: Date = new Date()): string {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
@@ -59,7 +67,8 @@ const BASE_SCHEDULE_CONFIG = [
  */
 export function getScheduleWithStatus(
   sessions: WorkoutSession[],
-  activeUser: User
+  activeUser: User,
+  routines: Routine[] = []
 ): ScheduleDayStatus[] {
   const currentDayIndex = getCurrentDayIndex();
   const weekDates = getCurrentWeekDates();
@@ -68,15 +77,8 @@ export function getScheduleWithStatus(
   return BASE_SCHEDULE_CONFIG.map((item) => {
     const dayDateStr = weekDates[item.dayNumber];
 
-    const hasCompletedWorkout = userSessions.some((s) => {
-      if (s.date === dayDateStr) return true;
-      if (s.routineId === item.routineId) {
-        const sessionTime = s.startTime || new Date(s.date).getTime();
-        const diffDays = (Date.now() - sessionTime) / (1000 * 60 * 60 * 24);
-        return diffDays >= 0 && diffDays <= 7;
-      }
-      return false;
-    });
+    // Exact date match only - a session from a different day must not mark this day done.
+    const hasCompletedWorkout = userSessions.some((s) => s.date === dayDateStr);
 
     let status: 'today' | 'done' | 'skipped' | 'upcoming';
 
@@ -91,7 +93,16 @@ export function getScheduleWithStatus(
       status = isPastDay ? (hasCompletedWorkout ? 'done' : 'skipped') : 'upcoming';
     }
 
-    return { ...item, status, dateStr: dayDateStr };
+    // Prefer the live routine's name/category so edits made in the Routines tab show up here too.
+    const liveRoutine = routines.find((r) => r.id === item.routineId);
+
+    return {
+      ...item,
+      routineName: liveRoutine?.name ?? item.routineName,
+      focus: liveRoutine?.targetCategory ?? item.focus,
+      status,
+      dateStr: dayDateStr,
+    };
   });
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Routine, User, WeightUnit, LoggedExercise, LoggedSet, WorkoutSession } from '../types';
 import { getSmartDefaults, checkIfPR, getHistoricalMax } from '../utils/workoutStats';
+import { getLocalDateString } from '../utils/dateSchedule';
 import { Check, Plus, Trash2, Trophy, Clock, CheckCircle2, History, ArrowLeft, AlertTriangle, X, Crown } from 'lucide-react';
 
 interface ActiveLoggerProps {
@@ -185,7 +186,7 @@ export function ActiveLogger({
       userId: activeUser,
       routineId: routine.id,
       routineName: routine.name,
-      date: new Date().toISOString().split('T')[0],
+      date: getLocalDateString(),
       startTime,
       endTime: Date.now(),
       exercises,

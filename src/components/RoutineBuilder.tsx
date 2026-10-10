@@ -5,24 +5,29 @@ import { Plus, Trash2, X, Check, Dumbbell } from 'lucide-react';
 interface RoutineBuilderProps {
   onSave: (routine: Routine) => void;
   onCancel: () => void;
+  initialRoutine?: Routine;
   theme?: 'dark' | 'light';
 }
 
-export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuilderProps) {
-  const [name, setName] = useState('');
-  const [targetCategory, setTargetCategory] = useState('');
-  const [description, setDescription] = useState('');
-  const [dayNumber] = useState(0);
-  const [exercises, setExercises] = useState<ExerciseTemplate[]>([
-    {
-      id: `custom-ex-${Date.now()}-1`,
-      name: '',
-      targetMuscle: '',
-      defaultSets: 3,
-      defaultReps: 10,
-      defaultWeight: 20,
-    },
-  ]);
+export function RoutineBuilder({ onSave, onCancel, initialRoutine, theme = 'dark' }: RoutineBuilderProps) {
+  const [name, setName] = useState(initialRoutine?.name ?? '');
+  const [targetCategory, setTargetCategory] = useState(initialRoutine?.targetCategory ?? '');
+  const [description, setDescription] = useState(initialRoutine?.description ?? '');
+  const [dayNumber] = useState(initialRoutine?.dayNumber ?? 0);
+  const [exercises, setExercises] = useState<ExerciseTemplate[]>(
+    initialRoutine && initialRoutine.exercises.length > 0
+      ? initialRoutine.exercises.map((ex) => ({ ...ex }))
+      : [
+          {
+            id: `custom-ex-${Date.now()}-1`,
+            name: '',
+            targetMuscle: '',
+            defaultSets: 3,
+            defaultReps: 10,
+            defaultWeight: 20,
+          },
+        ]
+  );
   const [error, setError] = useState<string | null>(null);
 
   const isDark = theme === 'dark';
@@ -68,7 +73,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
     }
 
     const newRoutine: Routine = {
-      id: `custom-routine-${Date.now()}`,
+      id: initialRoutine?.id ?? `custom-routine-${Date.now()}`,
       name: name.trim(),
       dayNumber,
       targetCategory: targetCategory.trim() || 'Custom Split',
@@ -77,7 +82,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
         ...ex,
         id: ex.id || `ex-${i}-${Date.now()}`,
       })),
-      isCustom: true,
+      isCustom: initialRoutine ? (initialRoutine.isCustom ?? false) : true,
     };
 
     onSave(newRoutine);
@@ -99,9 +104,11 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
             <Dumbbell className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold leading-normal">Custom Routine Builder</h2>
+            <h2 className="text-base sm:text-lg font-bold leading-normal">
+              {initialRoutine ? 'Edit Routine' : 'Custom Routine Builder'}
+            </h2>
             <p className="text-xs text-zinc-400 font-normal leading-normal">
-              Design a personalized split with custom targets
+              {initialRoutine ? 'Update the name, focus, or exercise list' : 'Design a personalized split with custom targets'}
             </p>
           </div>
         </div>
@@ -305,7 +312,7 @@ export function RoutineBuilder({ onSave, onCancel, theme = 'dark' }: RoutineBuil
             }`}
           >
             <Check className="w-4 h-4" />
-            <span>Save Routine</span>
+            <span>{initialRoutine ? 'Save Changes' : 'Save Routine'}</span>
           </button>
         </div>
       </form>

@@ -57,6 +57,7 @@ function App() {
     saveWorkoutSession,
     deleteWorkoutSession,
     saveCustomRoutine,
+    deleteCustomRoutine,
     updateProfileUnit,
     addReaction,
     signOut,
@@ -122,6 +123,14 @@ function App() {
       await saveCustomRoutine({ ...routine, createdBy: activeUser });
     } catch (err) {
       window.alert(err instanceof Error ? err.message : 'Failed to save routine.');
+    }
+  };
+
+  const handleDeleteCustomRoutine = async (routineId: string) => {
+    try {
+      await deleteCustomRoutine(routineId);
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : 'Failed to delete routine.');
     }
   };
 
@@ -264,6 +273,7 @@ function App() {
                   onSelectRoutineId={setSelectedRoutineId}
                   sessions={sessions}
                   activeUser={activeUser}
+                  routines={routines}
                 />
                 <RoutinePreviewList routine={selectedRoutine} />
                 <DashboardFeed
@@ -306,6 +316,7 @@ function App() {
                 routines={routines}
                 onSelectRoutineToStart={handleLaunchWorkout}
                 onSaveCustomRoutine={handleSaveCustomRoutine}
+                onDeleteCustomRoutine={handleDeleteCustomRoutine}
                 activeUser={activeUser}
                 onBackToDashboard={() => setActiveSubTab('dashboard')}
                 theme={theme}

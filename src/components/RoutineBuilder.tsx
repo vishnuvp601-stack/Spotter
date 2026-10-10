@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Routine, ExerciseTemplate } from '../types';
 import { Plus, Trash2, X, Check, Dumbbell } from 'lucide-react';
 
@@ -29,6 +29,20 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, theme = 'dark
         ]
   );
   const [error, setError] = useState<string | null>(null);
+  const exerciseNameRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const prevExerciseCountRef = useRef(exercises.length);
+
+  // Scroll/focus the new row into view so adding an exercise is never invisible off-screen.
+  useEffect(() => {
+    if (exercises.length > prevExerciseCountRef.current) {
+      const newInput = exerciseNameRefs.current[exercises.length - 1];
+      if (newInput) {
+        newInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        newInput.focus();
+      }
+    }
+    prevExerciseCountRef.current = exercises.length;
+  }, [exercises.length]);
 
   const isDark = theme === 'dark';
 
@@ -223,6 +237,7 @@ export function RoutineBuilder({ onSave, onCancel, initialRoutine, theme = 'dark
                   <div className="sm:col-span-5">
                     <input
                       type="text"
+                      ref={(el) => { exerciseNameRefs.current[index] = el; }}
                       placeholder="Exercise name (e.g., Incline DB Press)"
                       value={ex.name}
                       onChange={(e) => updateExerciseField(index, 'name', e.target.value)}

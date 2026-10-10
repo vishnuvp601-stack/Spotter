@@ -42,28 +42,28 @@ export function Header({
   return (
     <>
       <header className="sticky top-0 z-30 border-b backdrop-blur-md transition-colors select-none bg-[#f1f1f3]/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0] pt-[env(safe-area-inset-top)]">
-        <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-3">
+        <div className="max-w-6xl w-full mx-auto px-3 sm:px-8 h-16 flex items-center justify-between gap-2 sm:gap-3">
           {/* Logo: Dumbbell icon inside rounded square badge + SPOTTER */}
           <button
             type="button"
             onClick={onLogoClick}
-            className="flex items-center gap-2.5 shrink-0 text-left focus:outline-none focus:ring-0 select-none cursor-pointer group"
+            className="flex items-center gap-2 sm:gap-2.5 shrink-0 text-left focus:outline-none focus:ring-0 select-none cursor-pointer group"
           >
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border flex items-center justify-center transition-colors bg-zinc-100 border-zinc-300 text-emerald-600/90 group-hover:border-emerald-600/80 dark:bg-[#202024] dark:border-[#2f2f35] dark:text-emerald-400/90 dark:group-hover:border-emerald-400/60">
               <Barbell className="w-4 h-4 sm:w-5 sm:h-5" weight="fill" />
             </div>
-            <span className="text-lg sm:text-xl font-black tracking-wider uppercase font-sans">SPOTTER</span>
+            <span className="text-base sm:text-xl font-black tracking-wide sm:tracking-wider uppercase font-sans">SPOTTER</span>
           </button>
 
           {/* User Switcher Pill (circular avatars 'V' & 'A') + Standard Sun/Moon Theme Toggle + Settings Gear */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* User Switcher Pill */}
             <div className="border rounded-xl p-1 flex items-center gap-1 transition-colors bg-zinc-200/60 border-zinc-300/80 dark:bg-[#1a1a1e] dark:border-[#28282e]">
               {/* Vishnu Tab */}
               <button
                 type="button"
                 onClick={() => handleUserClick('vishnu')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer ${
+                className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer ${
                   activeUser === 'vishnu'
                     ? 'bg-zinc-900 text-zinc-100 border-zinc-700/50 dark:bg-[#28282e] dark:text-[#e0e0e0] dark:border-[#3a3a42]'
                     : 'border-transparent text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800/60'
@@ -81,13 +81,13 @@ export function Header({
                 </span>
                 <span className="hidden min-[480px]:inline">Vishnu</span>
                 {activeUser === 'vishnu' && (
-                  <>
+                  <span className="hidden min-[480px]:flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/90" weight="fill" />
                     <span className="flex items-center gap-0.5 text-amber-500">
                       <Flame className="w-3.5 h-3.5" weight="fill" />
                       <span className="tabular-nums">{userStreak}</span>
                     </span>
-                  </>
+                  </span>
                 )}
               </button>
 
@@ -95,7 +95,7 @@ export function Header({
               <button
                 type="button"
                 onClick={() => handleUserClick('amy')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer ${
+                className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer ${
                   activeUser === 'amy'
                     ? 'bg-zinc-900 text-zinc-100 border-zinc-700/50 dark:bg-[#28282e] dark:text-[#e0e0e0] dark:border-[#3a3a42]'
                     : 'border-transparent text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800/60'
@@ -113,13 +113,13 @@ export function Header({
                 </span>
                 <span className="hidden min-[480px]:inline">Amy</span>
                 {activeUser === 'amy' && (
-                  <>
+                  <span className="hidden min-[480px]:flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/90" weight="fill" />
                     <span className="flex items-center gap-0.5 text-amber-500">
                       <Flame className="w-3.5 h-3.5" weight="fill" />
                       <span className="tabular-nums">{userStreak}</span>
                     </span>
-                  </>
+                  </span>
                 )}
               </button>
             </div>
@@ -128,7 +128,7 @@ export function Header({
             <button
               type="button"
               onClick={onToggleTheme}
-              className="w-9 h-9 rounded-xl border flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-100 hover:bg-zinc-200/90 border-zinc-300 text-zinc-700 hover:text-zinc-950 dark:bg-[#1a1a1e] dark:hover:bg-[#222226] dark:border-[#28282e] dark:text-[#e0e0e0]"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-100 hover:bg-zinc-200/90 border-zinc-300 text-zinc-700 hover:text-zinc-950 dark:bg-[#1a1a1e] dark:hover:bg-[#222226] dark:border-[#28282e] dark:text-[#e0e0e0]"
               title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
               aria-label="Toggle theme"
             >
@@ -143,7 +143,7 @@ export function Header({
             <button
               type="button"
               onClick={onOpenSettings}
-              className="w-9 h-9 rounded-xl border flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-100 hover:bg-zinc-200/90 border-zinc-300 text-zinc-700 hover:text-zinc-950 dark:bg-[#1a1a1e] dark:hover:bg-[#222226] dark:border-[#28282e] dark:text-[#e0e0e0]"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-100 hover:bg-zinc-200/90 border-zinc-300 text-zinc-700 hover:text-zinc-950 dark:bg-[#1a1a1e] dark:hover:bg-[#222226] dark:border-[#28282e] dark:text-[#e0e0e0]"
               title="Settings & Preferences"
               aria-label="Settings"
             >

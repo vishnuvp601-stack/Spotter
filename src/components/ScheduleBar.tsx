@@ -55,18 +55,19 @@ export function ScheduleBar({ selectedRoutineId, onSelectRoutineId, sessions, ac
                   </span>
 
                   {item.status === 'today' ? (
-                    <span className="font-semibold text-[9px] sm:text-[10px] text-emerald-600 dark:text-emerald-400">
-                      Today
+                    <span className="font-semibold text-[9px] sm:text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 sm:hidden" />
+                      <span className="hidden sm:inline">Today</span>
                     </span>
                   ) : item.status === 'done' ? (
                     <span className="text-zinc-500 dark:text-zinc-400 text-[9px] sm:text-[10px] flex items-center gap-0.5">
                       <Check className="w-2.5 h-2.5" weight="bold" />
-                      <span>Done</span>
+                      <span className="hidden sm:inline">Done</span>
                     </span>
                   ) : item.status === 'skipped' ? (
                     <span className="text-zinc-400 dark:text-zinc-600 text-[9px] sm:text-[10px] flex items-center gap-0.5">
                       <Minus className="w-2.5 h-2.5" weight="bold" />
-                      <span>Skipped</span>
+                      <span className="hidden sm:inline">Skipped</span>
                     </span>
                   ) : null}
                 </div>

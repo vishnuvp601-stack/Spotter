@@ -20,7 +20,7 @@ interface ReactionRow {
 }
 
 function rowToReaction(row: ReactionRow): SessionReaction {
-  return { sessionId: row.session_id, reactorId: row.reactor_id as User, createdAt: row.created_at };
+  return { id: row.id, sessionId: row.session_id, reactorId: row.reactor_id as User, createdAt: row.created_at };
 }
 
 function applyChange<TRow extends { id: string }, TModel extends { id: string }>(
@@ -44,9 +44,10 @@ function applyChange<TRow extends { id: string }, TModel extends { id: string }>
   return list;
 }
 
-// Reactions don't have a client-side `id` field (their true identity is the
-// sessionId+reactorId pair), so they use their own dedup logic instead of
-// the generic id-based applyChange helper above.
+// Reactions use their own dedup logic instead of the generic id-based applyChange
+// helper above: INSERT/UPDATE match on the natural sessionId+reactorId unique key since a
+// brand-new optimistic local entry has no id yet, but DELETE matches on id (the only column
+// Postgres reliably includes in a DELETE payload by default).
 function applyReactionChange(
   list: SessionReaction[],
   payload: RealtimePostgresChangesPayload<ReactionRow>
@@ -60,8 +61,10 @@ function applyReactionChange(
     return next;
   }
   if (payload.eventType === 'DELETE') {
+    // Postgres only includes primary key columns in DELETE payloads by default
+    // (replica identity), so session_id/reactor_id aren't reliably present here - match on id.
     const oldRow = payload.old as Partial<ReactionRow>;
-    return list.filter((r) => !(r.sessionId === oldRow.session_id && r.reactorId === oldRow.reactor_id));
+    return list.filter((r) => r.id !== oldRow.id);
   }
   return list;
 }
@@ -133,6 +136,10 @@ export function SpotterDataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // ---- Data load + realtime subscriptions ------------------------------
+  // Keyed on user id (see dependency array below), not the whole Session object - Supabase's
+  // automatic token refresh (~hourly) replaces authSession with a new object reference for an
+  // unrelated token update, which would otherwise retrigger this whole effect, flip dataLoading
+  // back to true, and (via App.tsx's loading guard) unmount the entire app mid-workout.
   useEffect(() => {
     if (!authSession) {
       setProfiles([]);
@@ -224,7 +231,7 @@ export function SpotterDataProvider({ children }: { children: ReactNode }) {
       channelsRef.current.forEach((ch) => supabase.removeChannel(ch));
       channelsRef.current = [];
     };
-  }, [authSession]);
+  }, [authSession?.user?.id]);
 
   // ---- Mutations --------------------------------------------------------
   // Each mutation writes to Supabase AND patches local state immediately
@@ -248,6 +255,9 @@ export function SpotterDataProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.from('workout_sessions').delete().eq('id', sessionId);
     if (error) throw new Error(error.message);
     setSessions((prev) => prev.filter((s) => s.id !== sessionId));
+    // DB cascade-deletes reactions tied to this session; mirror that locally right away
+    // instead of relying on a realtime DELETE event for each orphaned reaction row.
+    setReactions((prev) => prev.filter((r) => r.sessionId !== sessionId));
   }, []);
 
   const saveCustomRoutine = useCallback(async (routine: Routine) => {

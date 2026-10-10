@@ -9,7 +9,7 @@ interface ActiveLoggerProps {
   activeUser: User;
   unit: WeightUnit;
   sessions: WorkoutSession[];
-  onFinishWorkout: (session: WorkoutSession) => void;
+  onFinishWorkout: (session: WorkoutSession) => Promise<void>;
   onTriggerRestTimer: () => void;
   onCancel: () => void;
 }
@@ -29,6 +29,7 @@ export function ActiveLogger({
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [showSummaryModal, setShowSummaryModal] = useState<boolean>(false);
   const [showDiscardModal, setShowDiscardModal] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   // Initialize exercises with Smart Defaults from user's previous session
   useEffect(() => {
@@ -247,7 +248,8 @@ export function ActiveLogger({
     }
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    if (isSaving) return;
     const finishedSession: WorkoutSession = {
       id: `session-${Date.now()}`,
       userId: activeUser,
@@ -262,7 +264,12 @@ export function ActiveLogger({
       completedSets: totalCompletedSets,
       prCount: prSetsCount,
     };
-    onFinishWorkout(finishedSession);
+    setIsSaving(true);
+    try {
+      await onFinishWorkout(finishedSession);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -688,16 +695,18 @@ export function ActiveLogger({
               <button
                 type="button"
                 onClick={() => setShowSummaryModal(false)}
-                className="px-4 py-2.5 rounded-full border text-xs font-semibold focus:outline-none focus:ring-0 select-none cursor-pointer border-zinc-300 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-300"
+                disabled={isSaving}
+                className="px-4 py-2.5 rounded-full border text-xs font-semibold focus:outline-none focus:ring-0 select-none cursor-pointer border-zinc-300 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Back to Session
               </button>
               <button
                 type="button"
                 onClick={handleFinish}
-                className="px-6 py-2.5 rounded-full text-xs font-bold border border-transparent focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-900 hover:bg-black text-white dark:bg-[#e0e0e0] dark:hover:bg-white dark:text-zinc-950"
+                disabled={isSaving}
+                className="px-6 py-2.5 rounded-full text-xs font-bold border border-transparent focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-900 hover:bg-black text-white dark:bg-[#e0e0e0] dark:hover:bg-white dark:text-zinc-950 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Confirm & Save
+                {isSaving ? 'Saving...' : 'Confirm & Save'}
               </button>
             </div>
           </div>

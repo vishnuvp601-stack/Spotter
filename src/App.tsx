@@ -299,6 +299,7 @@ function App() {
                 <DashboardFeed
                   activeUser={activeUser}
                   currentRoutine={recommendedRoutine}
+                  cardioRoutine={CARDIO_ROUTINE}
                   onLaunchRoutine={handleLaunchWorkout}
                   onStartCardio={() => handleLaunchWorkout(CARDIO_ROUTINE)}
                   onStartEmpty={() => handleLaunchWorkout(EMPTY_ROUTINE)}
@@ -322,6 +323,7 @@ function App() {
             {activeSubTab === 'workout' && (
               <WorkoutLauncher
                 recommendedRoutine={recommendedRoutine}
+                cardioRoutine={CARDIO_ROUTINE}
                 routines={routines}
                 onStartRoutine={handleLaunchWorkout}
                 onStartCardio={() => handleLaunchWorkout(CARDIO_ROUTINE)}

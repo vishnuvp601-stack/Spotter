@@ -26,7 +26,13 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
   const loggedExercises = useMemo(() => listLoggedExercises(sessions, activeUser), [sessions, activeUser]);
 
   const [selectedExerciseId, setSelectedExerciseId] = useState<string>('');
-  const activeExerciseId = selectedExerciseId || loggedExercises[0]?.id || '';
+  // Validate against the CURRENT user's exercise list, not just truthiness - otherwise a stale
+  // id selected before switching users (header's Vishnu/Amy toggle) lingers and silently shows
+  // "no data" even when the new user has other exercises logged.
+  const activeExerciseId =
+    (selectedExerciseId && loggedExercises.some((e) => e.id === selectedExerciseId)
+      ? selectedExerciseId
+      : loggedExercises[0]?.id) || '';
   const activeExerciseName = loggedExercises.find((e) => e.id === activeExerciseId)?.name;
 
   const strengthCurve = useMemo(

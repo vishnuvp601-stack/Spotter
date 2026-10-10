@@ -149,17 +149,20 @@ export function formatDatePretty(dateStr: string): string {
 export function formatFriendlyTimeAgo(timestampOrDate: number | string): string {
   try {
     const timeMs = typeof timestampOrDate === 'number' ? timestampOrDate : new Date(timestampOrDate).getTime();
-    if (isNaN(timeMs)) return 'yesterday';
+    if (isNaN(timeMs)) return 'a while ago';
 
     const diffMs = Date.now() - timeMs;
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
 
-    if (diffHours < 0 || diffHours > 24 * 30) return 'yesterday';
+    if (diffHours < 0) return 'just now';
     if (diffHours === 0) return 'earlier today';
     if (diffHours < 24) return `${diffHours}h ago`;
     const diffDays = Math.floor(diffHours / 24);
-    return diffDays === 1 ? 'yesterday' : `${diffDays} days ago`;
+    if (diffDays === 1) return 'yesterday';
+    if (diffDays < 30) return `${diffDays} days ago`;
+    const diffMonths = Math.floor(diffDays / 30);
+    return diffMonths === 1 ? '1 month ago' : `${diffMonths} months ago`;
   } catch {
-    return 'yesterday';
+    return 'a while ago';
   }
 }

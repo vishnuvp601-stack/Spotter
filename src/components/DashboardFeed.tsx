@@ -4,6 +4,7 @@ import { Play, Plus, Barbell, ChartBar, Flame, Trophy, Calendar, Footprints, Thu
 interface DashboardFeedProps {
   activeUser: User;
   currentRoutine: Routine;
+  cardioRoutine: Routine;
   onLaunchRoutine: (routine: Routine) => void;
   onStartCardio: () => void;
   onStartEmpty: () => void;
@@ -24,6 +25,7 @@ interface DashboardFeedProps {
 
 export function DashboardFeed({
   currentRoutine,
+  cardioRoutine,
   onLaunchRoutine,
   onStartCardio,
   onStartEmpty,
@@ -44,6 +46,10 @@ export function DashboardFeed({
   const partnerSessionMinutes = partnerLatestSession
     ? Math.max(1, Math.round(((partnerLatestSession.endTime ?? partnerLatestSession.startTime) - partnerLatestSession.startTime) / 60000))
     : 0;
+  const cardioExercise = cardioRoutine.exercises[0];
+  const cardioSummary = cardioExercise
+    ? `${cardioExercise.defaultIncline ?? 0}% Inc • ${cardioExercise.defaultSpeed ?? 0}k`
+    : cardioRoutine.description;
 
   return (
     <div className="space-y-8 pt-2 select-none">
@@ -110,7 +116,7 @@ export function DashboardFeed({
             <Footprints className="w-4 h-4 text-zinc-500 dark:text-zinc-400 mb-2" weight="fill" />
             <div>
               <p className="text-sm font-medium leading-normal text-zinc-900 dark:text-[#e0e0e0]">Incline Cardio</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-normal">12% Inc • 3.5k</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-normal">{cardioSummary}</p>
             </div>
           </button>
 

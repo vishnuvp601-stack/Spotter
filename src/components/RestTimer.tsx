@@ -45,7 +45,9 @@ export function RestTimer({ initialSeconds = 90, isActive, onClose }: RestTimerP
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isActive, isPaused, secondsLeft, hasFinished]);
+    // secondsLeft intentionally excluded - the interval reads/updates it via the functional
+    // setState form, so including it here would tear down and rebuild the interval every tick.
+  }, [isActive, isPaused, hasFinished]);
 
   if (!isActive) return null;
 

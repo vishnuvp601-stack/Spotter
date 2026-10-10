@@ -76,6 +76,7 @@ export interface WorkoutSession {
 }
 
 export interface SessionReaction {
+  id?: string;
   sessionId: string;
   reactorId: User;
   createdAt: string;

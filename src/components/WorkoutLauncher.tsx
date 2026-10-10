@@ -3,6 +3,7 @@ import { Play, Dumbbell, Footprints, Plus, ArrowLeft } from 'lucide-react';
 
 interface WorkoutLauncherProps {
   recommendedRoutine: Routine;
+  cardioRoutine: Routine;
   routines: Routine[];
   onStartRoutine: (routine: Routine) => void;
   onStartCardio: () => void;
@@ -13,6 +14,7 @@ interface WorkoutLauncherProps {
 
 export function WorkoutLauncher({
   recommendedRoutine,
+  cardioRoutine,
   routines,
   onStartRoutine,
   onStartCardio,
@@ -86,7 +88,7 @@ export function WorkoutLauncher({
             <div>
               <h3 className="text-base font-bold leading-normal">Treadmill Incline Cardio</h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-normal leading-normal">
-                12% Incline • 3.5 km/h endurance walk
+                {cardioRoutine.description}
               </p>
             </div>
           </div>

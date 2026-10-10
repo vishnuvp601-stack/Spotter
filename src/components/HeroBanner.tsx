@@ -1,6 +1,6 @@
 import type { User, Routine, WorkoutSession } from '../types';
 import { Play, ArrowRight, Calendar, Shield } from '@phosphor-icons/react';
-import { getTodayRoutineInfo } from '../utils/dateSchedule';
+import { getTodayRoutineInfo, formatFriendlyTimeAgo } from '../utils/dateSchedule';
 
 interface HeroBannerProps {
   user: User;
@@ -20,14 +20,7 @@ export function HeroBanner({ user, routine, lastSession, onLaunchWorkout }: Hero
     }
 
     const sessionTime = lastSession.startTime || new Date(lastSession.date).getTime();
-    const diffMs = Date.now() - sessionTime;
-    const diffHours = Math.max(1, Math.floor(diffMs / (1000 * 60 * 60)));
-
-    let timeAgoStr = `${diffHours}h ago`;
-    if (diffHours >= 24) {
-      const days = Math.floor(diffHours / 24);
-      timeAgoStr = days === 1 ? 'yesterday' : `${days}d ago`;
-    }
+    const timeAgoStr = formatFriendlyTimeAgo(sessionTime);
 
     return (
       <span>

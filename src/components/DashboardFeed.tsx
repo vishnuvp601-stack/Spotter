@@ -204,13 +204,13 @@ export function DashboardFeed({
         {recentSessions.length > 0 && (
           <div
             onClick={onGoToHistory}
-            className="rounded-lg p-4 flex items-center justify-between cursor-pointer transition-colors bg-zinc-50 hover:bg-zinc-100 dark:bg-[#18181b] dark:hover:bg-[#1c1c20] text-zinc-900 dark:text-[#e0e0e0]"
+            className="rounded-lg p-4 flex items-center justify-between gap-3 cursor-pointer transition-colors bg-zinc-50 hover:bg-zinc-100 dark:bg-[#18181b] dark:hover:bg-[#1c1c20] text-zinc-900 dark:text-[#e0e0e0]"
           >
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h4 className="text-sm font-medium leading-normal">{recentSessions[0].routineName}</h4>
+                <h4 className="text-sm font-medium leading-normal truncate">{recentSessions[0].routineName}</h4>
                 {recentSessions[0].prCount && recentSessions[0].prCount > 0 ? (
-                  <span className="text-xs text-amber-500 flex items-center gap-1">
+                  <span className="text-xs text-amber-500 flex items-center gap-1 shrink-0">
                     <Crown className="w-3 h-3" weight="fill" />
                     <span>{recentSessions[0].prCount} PRs</span>
                   </span>
@@ -223,7 +223,7 @@ export function DashboardFeed({
               </p>
             </div>
 
-            <div className="text-right">
+            <div className="text-right shrink-0">
               <span className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-[#e0e0e0]">
                 {(recentSessions[0].totalVolume || 0).toLocaleString()} kg
               </span>

@@ -49,7 +49,7 @@ export function WorkoutLauncher({
       </div>
 
       {/* 1. Recommended For Today Card */}
-      <div className="border rounded-3xl p-7 sm:p-9 md:p-10 space-y-6 sm:space-y-7 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <div className="border rounded-3xl p-7 sm:p-9 md:p-10 space-y-6 sm:space-y-7 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
           <div className="space-y-3 max-w-xl">
             <span className="inline-block px-3.5 py-1.5 rounded-full text-xs font-semibold border bg-zinc-100 text-zinc-700 border-zinc-300 dark:bg-[#222226] dark:text-zinc-300 dark:border-[#2f2f35]">
@@ -78,7 +78,7 @@ export function WorkoutLauncher({
 
       {/* 2. Quick Launch Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-        <div className="border rounded-3xl p-6 sm:p-7 space-y-4 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+        <div className="border rounded-3xl p-6 sm:p-7 space-y-4 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-600/90 dark:text-emerald-400/85 flex items-center justify-center border border-emerald-500/20">
               <Footprints className="w-5 h-5" />
@@ -100,7 +100,7 @@ export function WorkoutLauncher({
           </button>
         </div>
 
-        <div className="border rounded-3xl p-6 sm:p-7 space-y-4 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+        <div className="border rounded-3xl p-6 sm:p-7 space-y-4 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/20">
               <Plus className="w-5 h-5" />
@@ -145,7 +145,7 @@ export function WorkoutLauncher({
               key={routine.id}
               type="button"
               onClick={() => onStartRoutine(routine)}
-              className="text-left p-5 rounded-2xl border transition-all flex flex-col justify-between focus:outline-none focus:ring-0 select-none cursor-pointer bg-white border-zinc-200 hover:border-zinc-300 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:hover:border-[#383840]"
+              className="text-left p-5 rounded-2xl border transition-all flex flex-col justify-between focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-50 border-zinc-200 hover:border-zinc-300 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:hover:border-[#383840]"
             >
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600/90 dark:text-emerald-400/85">

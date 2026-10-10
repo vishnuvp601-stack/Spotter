@@ -140,7 +140,7 @@ function App() {
 
   if (dataLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#fafafc] dark:bg-[#121212] text-zinc-900 dark:text-[#e0e0e0] transition-colors">
+      <div className="min-h-screen flex items-center justify-center bg-[#f1f1f3] dark:bg-[#121212] text-zinc-900 dark:text-[#e0e0e0] transition-colors">
         <div className="animate-pulse text-sm text-zinc-500 dark:text-zinc-400">Loading your training data...</div>
       </div>
     );
@@ -148,7 +148,7 @@ function App() {
 
   if (dataError) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#fafafc] dark:bg-[#121212] text-zinc-900 dark:text-[#e0e0e0] p-4 transition-colors">
+      <div className="min-h-screen flex items-center justify-center bg-[#f1f1f3] dark:bg-[#121212] text-zinc-900 dark:text-[#e0e0e0] p-4 transition-colors">
         <div className="max-w-sm text-center space-y-2">
           <p className="text-sm font-bold text-red-500 dark:text-red-400">Couldn't load Spotter data</p>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">{dataError}</p>
@@ -159,7 +159,7 @@ function App() {
 
   if (routines.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#fafafc] dark:bg-[#121212] text-zinc-900 dark:text-[#e0e0e0] p-4 transition-colors">
+      <div className="min-h-screen flex items-center justify-center bg-[#f1f1f3] dark:bg-[#121212] text-zinc-900 dark:text-[#e0e0e0] p-4 transition-colors">
         <div className="max-w-sm text-center space-y-2">
           <p className="text-sm font-bold">No routines found yet</p>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
@@ -209,7 +209,7 @@ function App() {
   const isWorkoutActive = activeWorkoutRoutine !== null;
 
   return (
-    <div className="min-h-screen bg-[#fafafc] dark:bg-[#121212] transition-colors">
+    <div className="min-h-screen bg-[#f1f1f3] dark:bg-[#121212] transition-colors">
       <Header
         activeUser={activeUser}
         onSelectUser={handleSelectUser}

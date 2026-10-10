@@ -51,7 +51,7 @@ export function HistoryView({ sessions, activeUser, unit, onDeleteSession, onBac
 
       <div className="space-y-4 sm:space-y-5">
         {userSessions.length === 0 ? (
-          <div className="border rounded-3xl p-10 text-center space-y-2 bg-white border-zinc-200 text-zinc-600 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-zinc-400">
+          <div className="border rounded-3xl p-10 text-center space-y-2 bg-zinc-50 border-zinc-200 text-zinc-600 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-zinc-400">
             <p className="text-sm font-bold">No logged workouts yet for {activeUser === 'vishnu' ? 'Vishnu' : 'Amy'}.</p>
             <p className="text-xs text-zinc-500 font-normal leading-normal">
               Tap Launch on the dashboard to complete your first session!
@@ -73,7 +73,7 @@ export function HistoryView({ sessions, activeUser, unit, onDeleteSession, onBac
             return (
               <div
                 key={session.id}
-                className="border rounded-3xl p-6 sm:p-7 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]"
+                className="border rounded-3xl p-6 sm:p-7 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
@@ -180,7 +180,7 @@ export function HistoryView({ sessions, activeUser, unit, onDeleteSession, onBac
           }}
           className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150"
         >
-          <div className="border rounded-3xl max-w-sm w-full p-6 sm:p-7 space-y-5 animate-in zoom-in-95 duration-150 relative bg-white border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
+          <div className="border rounded-3xl max-w-sm w-full p-6 sm:p-7 space-y-5 animate-in zoom-in-95 duration-150 relative bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-red-500/15 text-red-500 flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-5 h-5" />

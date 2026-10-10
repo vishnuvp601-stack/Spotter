@@ -73,7 +73,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
 
       {/* Stat Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
           <div className="flex items-center gap-2 text-[10px] sm:text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
             <Flame className="w-3.5 h-3.5 text-amber-500 fill-current" />
             <span>STREAK</span>
@@ -84,7 +84,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
           </div>
         </div>
 
-        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
           <div className="flex items-center gap-2 text-[10px] sm:text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
             <CalendarCheck className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
             <span>THIS WEEK</span>
@@ -95,7 +95,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
           </div>
         </div>
 
-        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
           <div className="flex items-center gap-2 text-[10px] sm:text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
             <BarChart2 className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
             <span>TOTAL VOLUME</span>
@@ -106,7 +106,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
           </div>
         </div>
 
-        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+        <div className="border rounded-3xl p-5 sm:p-6 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
           <div className="flex items-center gap-2 text-[10px] sm:text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
             <Dumbbell className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
             <span>TOTAL SETS</span>
@@ -119,7 +119,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
       </div>
 
       {/* Weekly Completion Grid */}
-      <div className="border rounded-3xl p-6 sm:p-7 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <div className="border rounded-3xl p-6 sm:p-7 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
         <h3 className="text-sm font-bold leading-normal mb-4">This Week's Training Days</h3>
         <div className="grid grid-cols-5 gap-2.5 sm:gap-3.5">
           {weekDays.map((day) => (
@@ -140,7 +140,7 @@ export function AnalyticsView({ sessions, activeUser, unit, onBackToDashboard }:
       </div>
 
       {/* Strength Curve */}
-      <div className="border rounded-3xl p-6 sm:p-8 space-y-6 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <div className="border rounded-3xl p-6 sm:p-8 space-y-6 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h3 className="text-sm font-bold leading-normal">Strength Curve</h3>

@@ -200,7 +200,7 @@ export function ActiveLogger({
   return (
     <div className="space-y-8 pb-36 select-none">
       {/* Active Workout Header Bar */}
-      <div className="border rounded-2xl p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 sticky top-16 z-20 backdrop-blur-md transition-colors bg-white/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <div className="border rounded-2xl p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 sticky top-16 z-20 backdrop-blur-md transition-colors bg-zinc-50/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
         <div className="flex items-center gap-3 min-w-0">
           <button
             type="button"
@@ -266,7 +266,7 @@ export function ActiveLogger({
           return (
             <div
               key={exercise.exerciseId}
-              className="border rounded-3xl p-6 sm:p-8 space-y-6 transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]"
+              className="border rounded-3xl p-6 sm:p-8 space-y-6 transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]"
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-2">
                 <div>
@@ -321,7 +321,7 @@ export function ActiveLogger({
                         <button
                           type="button"
                           onClick={() => updateSetWeight(exerciseIdx, setIdx, set.weight - 2.5)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-white border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-50 border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
                         >
                           -
                         </button>
@@ -330,12 +330,12 @@ export function ActiveLogger({
                           step="0.5"
                           value={set.weight}
                           onChange={(e) => updateSetWeight(exerciseIdx, setIdx, parseFloat(e.target.value) || 0)}
-                          className="w-12 sm:w-16 text-center text-xs sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-white border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                          className="w-12 sm:w-16 text-center text-xs sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                         />
                         <button
                           type="button"
                           onClick={() => updateSetWeight(exerciseIdx, setIdx, set.weight + 2.5)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-white border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
+                          className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-50 border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
                         >
                           +
                         </button>
@@ -345,7 +345,7 @@ export function ActiveLogger({
                         <button
                           type="button"
                           onClick={() => updateSetReps(exerciseIdx, setIdx, set.reps - 1)}
-                          className="w-7 h-7 sm:w-7 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-white border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
+                          className="w-7 h-7 sm:w-7 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-50 border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
                         >
                           -
                         </button>
@@ -353,12 +353,12 @@ export function ActiveLogger({
                           type="number"
                           value={set.reps}
                           onChange={(e) => updateSetReps(exerciseIdx, setIdx, parseInt(e.target.value, 10) || 0)}
-                          className="w-10 sm:w-12 text-center text-xs sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-white border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
+                          className="w-10 sm:w-12 text-center text-xs sm:text-sm font-bold tabular-nums rounded-lg py-1.5 border focus:outline-none focus:border-emerald-600/70 bg-zinc-50 border-zinc-300 text-zinc-900 dark:bg-[#121214] dark:border-[#2a2a30] dark:text-[#e0e0e0]"
                         />
                         <button
                           type="button"
                           onClick={() => updateSetReps(exerciseIdx, setIdx, set.reps + 1)}
-                          className="w-7 h-7 sm:w-7 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-white border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
+                          className="w-7 h-7 sm:w-7 sm:h-8 rounded-lg text-xs font-bold flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-50 border border-zinc-300/80 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-[#e0e0e0] dark:hover:bg-[#28282e]"
                         >
                           +
                         </button>
@@ -371,7 +371,7 @@ export function ActiveLogger({
                           className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg border flex items-center justify-center transition-all focus:outline-none focus:ring-0 select-none cursor-pointer ${
                             set.completed
                               ? 'bg-[#2f855a] border-[#2f855a] text-white'
-                              : 'bg-white border-zinc-300 text-zinc-400 hover:text-zinc-900 hover:border-zinc-400 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-zinc-400 dark:hover:text-[#e0e0e0]'
+                              : 'bg-zinc-50 border-zinc-300 text-zinc-400 hover:text-zinc-900 hover:border-zinc-400 dark:bg-[#202025] dark:border-[#2f2f35] dark:text-zinc-400 dark:hover:text-[#e0e0e0]'
                           }`}
                           title={set.completed ? 'Mark incomplete' : 'Complete set (triggers 90s timer)'}
                         >
@@ -417,7 +417,7 @@ export function ActiveLogger({
       </div>
 
       {/* Session Notes */}
-      <div className="border rounded-3xl p-6 sm:p-7 space-y-3 transition-colors bg-white border-zinc-200 dark:bg-[#18181c] dark:border-[#28282e]">
+      <div className="border rounded-3xl p-6 sm:p-7 space-y-3 transition-colors bg-zinc-50 border-zinc-200 dark:bg-[#18181c] dark:border-[#28282e]">
         <label className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           Workout Notes
         </label>
@@ -456,7 +456,7 @@ export function ActiveLogger({
           }}
           className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150"
         >
-          <div className="border rounded-3xl max-w-sm w-full p-6 sm:p-7 space-y-5 relative select-none animate-in zoom-in-95 duration-150 bg-white border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
+          <div className="border rounded-3xl max-w-sm w-full p-6 sm:p-7 space-y-5 relative select-none animate-in zoom-in-95 duration-150 bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
             <button
               type="button"
               onClick={() => setShowDiscardModal(false)}
@@ -512,7 +512,7 @@ export function ActiveLogger({
           }}
           className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-150"
         >
-          <div className="border rounded-3xl max-w-md w-full p-7 sm:p-8 space-y-6 animate-in zoom-in-95 duration-150 relative select-none bg-white border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
+          <div className="border rounded-3xl max-w-md w-full p-7 sm:p-8 space-y-6 animate-in zoom-in-95 duration-150 relative select-none bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
             <button
               type="button"
               onClick={() => setShowSummaryModal(false)}

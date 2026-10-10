@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dumbbell, Sun, Moon, Settings, ShieldCheck, Flame, AlertCircle, X } from 'lucide-react';
+import { Barbell, Sun, Moon, GearSix, ShieldCheck, Flame, WarningCircle, X } from '@phosphor-icons/react';
 import type { User } from '../types';
 
 interface HeaderProps {
@@ -41,7 +41,7 @@ export function Header({
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b backdrop-blur-md transition-colors select-none bg-[#fafafc]/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <header className="sticky top-0 z-30 border-b backdrop-blur-md transition-colors select-none bg-[#f1f1f3]/95 border-zinc-200 text-zinc-900 dark:bg-[#161619]/95 dark:border-[#28282e] dark:text-[#e0e0e0]">
         <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-3">
           {/* Logo: Dumbbell icon inside rounded square badge + SPOTTER */}
           <button
@@ -50,7 +50,7 @@ export function Header({
             className="flex items-center gap-2.5 shrink-0 text-left focus:outline-none focus:ring-0 select-none cursor-pointer group"
           >
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border flex items-center justify-center transition-colors bg-zinc-100 border-zinc-300 text-emerald-600/90 group-hover:border-emerald-600/80 dark:bg-[#202024] dark:border-[#2f2f35] dark:text-emerald-400/90 dark:group-hover:border-emerald-400/60">
-              <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+              <Barbell className="w-4 h-4 sm:w-5 sm:h-5" weight="fill" />
             </div>
             <span className="text-lg sm:text-xl font-black tracking-wider uppercase font-sans">SPOTTER</span>
           </button>
@@ -63,10 +63,10 @@ export function Header({
               <button
                 type="button"
                 onClick={() => handleUserClick('vishnu')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-0 select-none cursor-pointer ${
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer ${
                   activeUser === 'vishnu'
-                    ? 'bg-zinc-900 text-zinc-100 dark:bg-[#28282e] dark:text-[#e0e0e0] border border-zinc-700/50'
-                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800/60'
+                    ? 'bg-zinc-900 text-zinc-100 border-zinc-700/50 dark:bg-[#28282e] dark:text-[#e0e0e0] dark:border-[#3a3a42]'
+                    : 'border-transparent text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800/60'
                 }`}
                 title="Switch to Vishnu"
               >
@@ -82,9 +82,9 @@ export function Header({
                 <span className="hidden min-[480px]:inline">Vishnu</span>
                 {activeUser === 'vishnu' && (
                   <>
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/90 stroke-[2.5]" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/90" weight="fill" />
                     <span className="flex items-center gap-0.5 text-amber-500">
-                      <Flame className="w-3.5 h-3.5 fill-current" />
+                      <Flame className="w-3.5 h-3.5" weight="fill" />
                       <span className="tabular-nums">{userStreak}</span>
                     </span>
                   </>
@@ -95,10 +95,10 @@ export function Header({
               <button
                 type="button"
                 onClick={() => handleUserClick('amy')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-0 select-none cursor-pointer ${
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer ${
                   activeUser === 'amy'
-                    ? 'bg-zinc-900 text-zinc-100 dark:bg-[#28282e] dark:text-[#e0e0e0] border border-zinc-700/50'
-                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800/60'
+                    ? 'bg-zinc-900 text-zinc-100 border-zinc-700/50 dark:bg-[#28282e] dark:text-[#e0e0e0] dark:border-[#3a3a42]'
+                    : 'border-transparent text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800/60'
                 }`}
                 title="Switch to Amy"
               >
@@ -114,9 +114,9 @@ export function Header({
                 <span className="hidden min-[480px]:inline">Amy</span>
                 {activeUser === 'amy' && (
                   <>
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/90 stroke-[2.5]" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/90" weight="fill" />
                     <span className="flex items-center gap-0.5 text-amber-500">
-                      <Flame className="w-3.5 h-3.5 fill-current" />
+                      <Flame className="w-3.5 h-3.5" weight="fill" />
                       <span className="tabular-nums">{userStreak}</span>
                     </span>
                   </>
@@ -132,7 +132,11 @@ export function Header({
               title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
               aria-label="Toggle theme"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
+              {isDark ? (
+                <Sun className="w-4 h-4 text-amber-400" weight="fill" />
+              ) : (
+                <Moon className="w-4 h-4 text-zinc-700" weight="fill" />
+              )}
             </button>
 
             {/* Settings Gear Icon */}
@@ -143,7 +147,7 @@ export function Header({
               title="Settings & Preferences"
               aria-label="Settings"
             >
-              <Settings className="w-4 h-4" />
+              <GearSix className="w-4 h-4" weight="fill" />
             </button>
           </div>
         </div>
@@ -152,19 +156,19 @@ export function Header({
       {/* Validation Dialog when switching athlete during an active session */}
       {pendingSwitchUser && (
         <div className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="border rounded-2xl max-w-sm w-full p-6 sm:p-7 space-y-5 animate-in fade-in zoom-in-95 duration-150 relative bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#2f2f35] dark:text-[#e0e0e0]">
+          <div className="border rounded-2xl max-w-sm w-full p-6 sm:p-7 space-y-5 animate-in fade-in zoom-in-95 duration-150 relative bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#2f2f35] dark:text-[#e0e0e0]">
             <button
               type="button"
               onClick={() => setPendingSwitchUser(null)}
               className="absolute top-4 right-4 w-7 h-7 rounded-full flex items-center justify-center transition-colors focus:outline-none focus:ring-0 select-none cursor-pointer text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-[#e0e0e0] dark:hover:bg-zinc-800"
               aria-label="Close dialog"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" weight="bold" />
             </button>
 
             <div className="flex items-center gap-3 pr-6">
               <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center shrink-0">
-                <AlertCircle className="w-5 h-5" />
+                <WarningCircle className="w-5 h-5" weight="fill" />
               </div>
               <div>
                 <h3 className="text-base font-bold leading-normal">Active Workout Running</h3>

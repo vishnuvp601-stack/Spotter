@@ -1,5 +1,5 @@
 import type { User, Routine, WorkoutSession } from '../types';
-import { Play, ArrowRight, Calendar, Shield } from 'lucide-react';
+import { Play, ArrowRight, Calendar, Shield } from '@phosphor-icons/react';
 import { getTodayRoutineInfo } from '../utils/dateSchedule';
 
 interface HeroBannerProps {
@@ -43,26 +43,25 @@ export function HeroBanner({ user, routine, lastSession, onLaunchWorkout }: Hero
     : `Hi ${userName}, today is your day for ${routine.name}!`;
 
   return (
-    <div className="w-full border rounded-3xl p-8 sm:p-10 md:p-12 space-y-7 sm:space-y-8 transition-colors select-none bg-white border-zinc-200 text-zinc-900 dark:bg-[#18181c] dark:border-[#28282e] dark:text-[#e0e0e0]">
-      {/* Tags: PPLPP SCHEDULE and ADMIN */}
-      <div className="flex items-center gap-2.5">
-        <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold border bg-zinc-100 border-zinc-300 text-zinc-700 dark:bg-[#222226] dark:border-[#2f2f35] dark:text-zinc-300">
-          <Calendar className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
-          <span>PPLPP SCHEDULE</span>
+    <div className="w-full pb-7 sm:pb-8 border-b transition-colors select-none border-zinc-200 text-zinc-900 dark:border-[#28282e] dark:text-[#e0e0e0]">
+      <div className="flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400 mb-5">
+        <span className="inline-flex items-center gap-1.5">
+          <Calendar className="w-3.5 h-3.5" weight="fill" />
+          <span>PPLPP schedule</span>
         </span>
-        <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border bg-zinc-100 border-zinc-300 text-zinc-700 dark:bg-[#222226] dark:border-[#2f2f35] dark:text-zinc-300">
-          <Shield className="w-3 h-3 text-emerald-500/90 dark:text-emerald-400/85" />
-          <span>ADMIN</span>
+        <span className="inline-flex items-center gap-1.5">
+          <Shield className="w-3 h-3 text-emerald-600/80 dark:text-emerald-400/80" weight="fill" />
+          <span>Admin</span>
         </span>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-        <div className="space-y-3 max-w-xl">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-snug">
+        <div className="space-y-2.5 max-w-xl">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight leading-snug">
             {heroHeading}
           </h1>
 
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-[#a8a8b2] font-normal leading-relaxed">
+          <p className="text-sm text-zinc-600 dark:text-[#a8a8b2] font-normal leading-relaxed">
             {getLastSessionMarkup()}
           </p>
         </div>
@@ -71,11 +70,11 @@ export function HeroBanner({ user, routine, lastSession, onLaunchWorkout }: Hero
           <button
             type="button"
             onClick={onLaunchWorkout}
-            className="inline-flex items-center justify-center gap-2.5 font-bold px-7 sm:px-8 py-3.5 sm:py-4 rounded-full text-sm sm:text-base transition-all transform active:scale-95 border border-transparent focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-900 text-zinc-100 hover:bg-black dark:bg-[#e0e0e0] dark:text-zinc-950 dark:hover:bg-white"
+            className="inline-flex items-center justify-center gap-2 font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors active:scale-[0.98] focus:outline-none focus:ring-0 select-none cursor-pointer bg-zinc-900 text-zinc-100 hover:bg-black dark:bg-[#e0e0e0] dark:text-zinc-950 dark:hover:bg-white"
           >
-            <Play className="w-4 h-4 fill-current" />
+            <Play className="w-3.5 h-3.5" weight="fill" />
             <span>Launch {routine.name}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" weight="bold" />
           </button>
         </div>
       </div>

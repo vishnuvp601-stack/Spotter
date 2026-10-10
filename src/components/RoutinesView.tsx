@@ -96,7 +96,7 @@ export function RoutinesView({
             return (
               <div
                 key={routine.id}
-                className="border rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]"
+                className="border rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3">
@@ -181,7 +181,7 @@ export function RoutinesView({
             {customRoutines.map((routine) => (
               <div
                 key={routine.id}
-                className="border rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-colors bg-white border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]"
+                className="border rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-colors bg-zinc-50 border-zinc-200 text-zinc-900 dark:bg-[#1a1a1e] dark:border-[#28282e] dark:text-[#e0e0e0]"
               >
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600/90 dark:text-emerald-400/85">
